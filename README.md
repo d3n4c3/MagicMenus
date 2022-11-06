@@ -1,5 +1,5 @@
 # MagicMenus
-A productivity software for launching customizable menus from hotkeys.
+A productivity software for launching customizable menus from hotkeys.<br>
 Project Icon
 <img src="https://i.imgur.com/0cWsf5m.png" alt="mmICON" title="Magic Menus Icon">
 </br>
