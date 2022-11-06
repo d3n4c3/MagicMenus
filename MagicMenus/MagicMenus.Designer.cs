@@ -264,13 +264,13 @@ namespace QuickMenu
             // 
             // btnSetClipboardHotkey
             // 
-            this.btnSetClipboardHotkey.Enabled = false;
             this.btnSetClipboardHotkey.Location = new System.Drawing.Point(366, 13);
             this.btnSetClipboardHotkey.Name = "btnSetClipboardHotkey";
             this.btnSetClipboardHotkey.Size = new System.Drawing.Size(40, 20);
             this.btnSetClipboardHotkey.TabIndex = 31;
             this.btnSetClipboardHotkey.Text = "SET";
             this.btnSetClipboardHotkey.UseVisualStyleBackColor = true;
+            this.btnSetClipboardHotkey.Click += new System.EventHandler(this.btnSetClipboardHotkey_Click);
             // 
             // tabControl3
             // 
@@ -480,7 +480,6 @@ namespace QuickMenu
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(122, 21);
             this.textBox1.TabIndex = 29;
-            this.textBox1.Text = "[SHIFT] + [WIN] + Z";
             // 
             // label21
             // 
@@ -1041,7 +1040,6 @@ namespace QuickMenu
             // 
             // btnSetActionHotkey
             // 
-            this.btnSetActionHotkey.Enabled = false;
             this.btnSetActionHotkey.Location = new System.Drawing.Point(368, 13);
             this.btnSetActionHotkey.Name = "btnSetActionHotkey";
             this.btnSetActionHotkey.Size = new System.Drawing.Size(40, 20);
@@ -1057,7 +1055,6 @@ namespace QuickMenu
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(122, 21);
             this.textBox4.TabIndex = 17;
-            this.textBox4.Text = "[SHIFT] + [WIN] + X";
             // 
             // label6
             // 
@@ -1196,6 +1193,7 @@ namespace QuickMenu
             this.tabClipboard.TabIndex = 2;
             this.tabClipboard.Text = "Clipboard Menu";
             this.tabClipboard.UseVisualStyleBackColor = true;
+            this.tabClipboard.Click += new System.EventHandler(this.tabClipboard_Click);
             // 
             // label28
             // 

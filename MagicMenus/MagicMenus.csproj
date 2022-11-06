@@ -58,6 +58,12 @@
     <Compile Include="PortableSettingsProvider.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SetHotKey.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SetHotKey.Designer.cs">
+      <DependentUpon>SetHotKey.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserInput.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -78,6 +84,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="SetHotKey.resx">
+      <DependentUpon>SetHotKey.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserInput.resx">
       <DependentUpon>UserInput.cs</DependentUpon>
     </EmbeddedResource>

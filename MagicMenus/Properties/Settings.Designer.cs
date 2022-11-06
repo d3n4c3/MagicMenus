@@ -52,5 +52,33 @@ namespace MagicMenus.Properties {
                 this["settingClipboardList"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.SettingsProviderAttribute(typeof(MagicMenus.Settings.PortableSettingsProvider))]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.SettingsManageabilityAttribute(global::System.Configuration.SettingsManageability.Roaming)]
+        public string settingsClipboardHotkey {
+            get {
+                return ((string)(this["settingsClipboardHotkey"]));
+            }
+            set {
+                this["settingsClipboardHotkey"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.SettingsProviderAttribute(typeof(MagicMenus.Settings.PortableSettingsProvider))]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.SettingsManageabilityAttribute(global::System.Configuration.SettingsManageability.Roaming)]
+        public string settingsActionHotkey {
+            get {
+                return ((string)(this["settingsActionHotkey"]));
+            }
+            set {
+                this["settingsActionHotkey"] = value;
+            }
+        }
     }
 }

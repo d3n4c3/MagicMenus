@@ -96,5 +96,10 @@ namespace MagicMenus
         {
             label1.BackColor = Color.FromArgb(64, 64, 64);
         }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

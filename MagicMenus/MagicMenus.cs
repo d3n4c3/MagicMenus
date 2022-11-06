@@ -25,6 +25,9 @@ namespace QuickMenu
         KeyboardHook hook = new KeyboardHook();
         KeyboardHook hook2 = new KeyboardHook();
 
+        public bool clipboardSettings = false;
+        public bool actionSettings = false;
+
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HT_CAPTION = 0x2;
         [System.Runtime.InteropServices.DllImport("user32.dll")]
@@ -56,14 +59,72 @@ namespace QuickMenu
 
             Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 5, 5));
 
+
+            //Action Hook
             hook.KeyPressed +=
                 new EventHandler<KeyPressedEventArgs>(hook_KeyPressed);
-            hook.RegisterHotKey(ModKeys.Shift | ModKeys.Win, Keys.X);
 
+            if (Settings.Default.settingsActionHotkey == "")
+            {
+                
+                actionSettings = true;
+
+            }
+            else
+            {
+                textBox4.Text = Settings.Default.settingsActionHotkey;
+                string[] Splitter = textBox4.Text.Split(char.Parse(","));
+                string Modkey1 = Splitter[0].Trim();
+                string Modkey2 = Splitter[1].Trim();
+                string Keypress1 = Splitter[2].Trim();
+                ModKeys modKeys1 = ModKeys.Shift;
+                ModKeys modKeys2 = ModKeys.Control;
+                if (Modkey1.Contains("Shift")) modKeys1 = ModKeys.Shift;
+                if (Modkey1.Contains("Alt")) modKeys1 = ModKeys.Alt;
+                if (Modkey1.Contains("Control")) modKeys1 = ModKeys.Control;
+                if (Modkey2.Contains("Shift")) modKeys2 = ModKeys.Shift;
+                if (Modkey2.Contains("Alt")) modKeys2 = ModKeys.Alt;
+                if (Modkey2.Contains("Control")) modKeys2 = ModKeys.Control;
+                Keys K1 = (Keys)Enum.Parse(typeof(Keys), Keypress1);
+                hook.RegisterHotKey(modKeys1 | modKeys2, K1);
+                textBox4.Text = textBox4.Text.Replace(",", "+");
+                textBox4.Text = textBox4.Text.ToUpper();
+
+            }
+            //End Action Hook
+
+            //Clipboard Hook
             hook2.KeyPressed +=
-    new EventHandler<KeyPressedEventArgs>(hook2_KeyPressed);
-            hook2.RegisterHotKey(ModKeys.Shift | ModKeys.Win, Keys.Z);
+                new EventHandler<KeyPressedEventArgs>(hook2_KeyPressed);
 
+            if (Settings.Default.settingsClipboardHotkey == "")
+            {
+                //MessageBox.Show("You need to set a hotkey for the clipboard menu.", "Set Clipboard Hotkey", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                clipboardSettings = true;
+
+            }
+            else
+            {
+                textBox1.Text = Settings.Default.settingsClipboardHotkey;
+                string[] Splitter = textBox1.Text.Split(char.Parse(","));
+                string Modkey1 = Splitter[0].Trim();
+                string Modkey2 = Splitter[1].Trim();
+                string Keypress1 = Splitter[2].Trim();
+                ModKeys modKeys1 = ModKeys.Shift;
+                ModKeys modKeys2 = ModKeys.Control;
+                if (Modkey1.Contains("Shift")) modKeys1 = ModKeys.Shift;
+                if (Modkey1.Contains("Alt")) modKeys1 = ModKeys.Alt;
+                if (Modkey1.Contains("Control")) modKeys1 = ModKeys.Control;
+                if (Modkey2.Contains("Shift")) modKeys2 = ModKeys.Shift;
+                if (Modkey2.Contains("Alt")) modKeys2 = ModKeys.Alt;
+                if (Modkey2.Contains("Control")) modKeys2 = ModKeys.Control;
+                Keys K1 = (Keys)Enum.Parse(typeof(Keys), Keypress1);
+                hook2.RegisterHotKey(modKeys1 | modKeys2, K1);
+                textBox1.Text = textBox1.Text.Replace(",", "+");
+                textBox1.Text = textBox1.Text.ToUpper();
+
+            }
+            //End Clipboard Hook
         }
         private void DragAndDrop(MouseEventArgs e)
         {
@@ -101,6 +162,21 @@ namespace QuickMenu
             this.Location = p;
             this.TopMost = true;
             SetForegroundWindow(this.Handle);
+
+            if (clipboardSettings)
+            {
+                this.Height = 365;
+                this.Width = 446;
+                this.CenterToScreen();
+                tabControl2.SelectedTab = tabClipboard;
+            }
+            if (actionSettings)
+            {
+                this.Height = 365;
+                this.Width = 446;
+                this.CenterToScreen();
+                tabControl2.SelectedTab = tabAction;
+            }
         }
 
         private void QuickMenu_DragDrop(object sender, DragEventArgs e)
@@ -579,7 +655,40 @@ namespace QuickMenu
 
         private void btnSetActionHotkey_Click(object sender, EventArgs e)
         {
+            var hotkey1 = new SetHotKey();
+            hotkey1.ShowDialog();
+            if (hotkey1.hkModkeys == string.Empty)
+            {
 
+            }
+            else
+            {
+                hook.Dispose();
+                KeyboardHook reDefineHook = new KeyboardHook();
+                reDefineHook.KeyPressed +=
+                 new EventHandler<KeyPressedEventArgs>(hook_KeyPressed);
+
+                string[] Splitter = hotkey1.hkModkeys.Split(char.Parse(","));
+                string Modkey1 = Splitter[0];
+                string Modkey2 = Splitter[1];
+
+                ModKeys modKeys1 = ModKeys.Shift;
+                ModKeys modKeys2 = ModKeys.Control;
+                if (Modkey1.Contains("Shift")) modKeys1 = ModKeys.Shift;
+                if (Modkey1.Contains("Alt")) modKeys1 = ModKeys.Alt;
+                if (Modkey1.Contains("Control")) modKeys1 = ModKeys.Control;
+                if (Modkey2.Contains("Shift")) modKeys2 = ModKeys.Shift;
+                if (Modkey2.Contains("Alt")) modKeys2 = ModKeys.Alt;
+                if (Modkey2.Contains("Control")) modKeys2 = ModKeys.Control;
+
+                reDefineHook.RegisterHotKey(modKeys1 | modKeys2, hotkey1.hkKeypress);
+
+                Settings.Default.settingsActionHotkey = hotkey1.hkModkeys + ", " + hotkey1.hkKeypress;
+                textBox4.Text = Settings.Default.settingsActionHotkey;
+                textBox4.Text = textBox4.Text.Replace(",", "+");
+                textBox4.Text = textBox4.Text.ToUpper();
+                Settings.Default.Save();
+            }
         }
 
         private void btnBrowse_Click(object sender, EventArgs e)
@@ -933,6 +1042,50 @@ namespace QuickMenu
             cMenuStrip.Show(0, y);
             this.TopMost = true;
             SetForegroundWindow(this.Handle);
+        }
+
+        private void btnSetClipboardHotkey_Click(object sender, EventArgs e)
+        {
+            var hotkey = new SetHotKey();
+            hotkey.ShowDialog();
+            hook2.Dispose();
+            if (hotkey.hkModkeys == string.Empty)
+            {
+
+            }
+            else
+            {
+            KeyboardHook reDefineHook2 = new KeyboardHook();
+            reDefineHook2.KeyPressed +=
+             new EventHandler<KeyPressedEventArgs>(hook2_KeyPressed);
+
+            string[] Splitter = hotkey.hkModkeys.Split(char.Parse(","));
+            string Modkey1 = Splitter[0];
+            string Modkey2 = Splitter[1];
+
+            ModKeys modKeys1 = ModKeys.Shift;
+            ModKeys modKeys2 = ModKeys.Control;
+            if (Modkey1.Contains("Shift")) modKeys1 = ModKeys.Shift;
+            if (Modkey1.Contains("Alt")) modKeys1 = ModKeys.Alt;
+            if (Modkey1.Contains("Control")) modKeys1 = ModKeys.Control;
+            if (Modkey2.Contains("Shift")) modKeys2 = ModKeys.Shift;
+            if (Modkey2.Contains("Alt")) modKeys2 = ModKeys.Alt;
+            if (Modkey2.Contains("Control")) modKeys2 = ModKeys.Control;
+
+            reDefineHook2.RegisterHotKey(modKeys1 | modKeys2, hotkey.hkKeypress);
+
+            Settings.Default.settingsClipboardHotkey = hotkey.hkModkeys + ", " + hotkey.hkKeypress;
+            textBox1.Text = Settings.Default.settingsClipboardHotkey;
+            textBox1.Text = textBox1.Text.Replace(",", "+");
+            textBox1.Text = textBox1.Text.ToUpper();
+            Settings.Default.Save();
+            }
+
+        }
+
+        private void tabClipboard_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
