@@ -66,7 +66,7 @@ namespace MagicMenus
                         {
                             txtKey.Text = e.KeyCode.ToString();
                             settingHotkey = false;
-                            var response = MessageBox.Show("Would you like to set the hotkey for this menu to: " + txtModifer.Text + " + " + txtKey.Text + "?", "Set Hotkey?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                            var response = MessageBox.Show("Would you like to set the hotkey for this menu to: " + txtModifer.Text + " + " + txtKey.Text + "?" + "\n\nThe application will restart.", "Set Hotkey?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                             if (response.ToString() == "Yes")
                             {
                                 hkModkeys = e.Modifiers.ToString();

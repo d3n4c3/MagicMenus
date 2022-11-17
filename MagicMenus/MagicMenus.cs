@@ -688,6 +688,8 @@ namespace QuickMenu
                 textBox4.Text = textBox4.Text.Replace(",", "+");
                 textBox4.Text = textBox4.Text.ToUpper();
                 Settings.Default.Save();
+                Process.Start(Application.ExecutablePath);
+                this.Close();
             }
         }
 
@@ -1055,30 +1057,32 @@ namespace QuickMenu
             }
             else
             {
-            KeyboardHook reDefineHook2 = new KeyboardHook();
-            reDefineHook2.KeyPressed +=
-             new EventHandler<KeyPressedEventArgs>(hook2_KeyPressed);
+                KeyboardHook reDefineHook2 = new KeyboardHook();
+                reDefineHook2.KeyPressed +=
+                new EventHandler<KeyPressedEventArgs>(hook2_KeyPressed);
 
-            string[] Splitter = hotkey.hkModkeys.Split(char.Parse(","));
-            string Modkey1 = Splitter[0];
-            string Modkey2 = Splitter[1];
+                string[] Splitter = hotkey.hkModkeys.Split(char.Parse(","));
+                string Modkey1 = Splitter[0];
+                string Modkey2 = Splitter[1];
 
-            ModKeys modKeys1 = ModKeys.Shift;
-            ModKeys modKeys2 = ModKeys.Control;
-            if (Modkey1.Contains("Shift")) modKeys1 = ModKeys.Shift;
-            if (Modkey1.Contains("Alt")) modKeys1 = ModKeys.Alt;
-            if (Modkey1.Contains("Control")) modKeys1 = ModKeys.Control;
-            if (Modkey2.Contains("Shift")) modKeys2 = ModKeys.Shift;
-            if (Modkey2.Contains("Alt")) modKeys2 = ModKeys.Alt;
-            if (Modkey2.Contains("Control")) modKeys2 = ModKeys.Control;
+                ModKeys modKeys1 = ModKeys.Shift;
+                ModKeys modKeys2 = ModKeys.Control;
+                if (Modkey1.Contains("Shift")) modKeys1 = ModKeys.Shift;
+                if (Modkey1.Contains("Alt")) modKeys1 = ModKeys.Alt;
+                if (Modkey1.Contains("Control")) modKeys1 = ModKeys.Control;
+                if (Modkey2.Contains("Shift")) modKeys2 = ModKeys.Shift;
+                if (Modkey2.Contains("Alt")) modKeys2 = ModKeys.Alt;
+                if (Modkey2.Contains("Control")) modKeys2 = ModKeys.Control;
 
-            reDefineHook2.RegisterHotKey(modKeys1 | modKeys2, hotkey.hkKeypress);
+                reDefineHook2.RegisterHotKey(modKeys1 | modKeys2, hotkey.hkKeypress);
 
-            Settings.Default.settingsClipboardHotkey = hotkey.hkModkeys + ", " + hotkey.hkKeypress;
-            textBox1.Text = Settings.Default.settingsClipboardHotkey;
-            textBox1.Text = textBox1.Text.Replace(",", "+");
-            textBox1.Text = textBox1.Text.ToUpper();
-            Settings.Default.Save();
+                Settings.Default.settingsClipboardHotkey = hotkey.hkModkeys + ", " + hotkey.hkKeypress;
+                textBox1.Text = Settings.Default.settingsClipboardHotkey;
+                textBox1.Text = textBox1.Text.Replace(",", "+");
+                textBox1.Text = textBox1.Text.ToUpper();
+                Settings.Default.Save();
+                Process.Start(Application.ExecutablePath);
+                this.Close();
             }
 
         }
