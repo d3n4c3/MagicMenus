@@ -48,10 +48,16 @@ namespace MagicMenus
         private void BuildLayout()
         {
             FormBorderStyle = FormBorderStyle.None;
-            StartPosition = FormStartPosition.CenterParent;
+            // CenterParent would dock to the parent's top-left when the
+            // tray icon opens us (the MagicMenus form sits hidden at
+            // size 0x0 in that state). Use Manual + a Load-time recenter
+            // on the active screen so we always land in the middle of
+            // whatever monitor the cursor / parent is on.
+            StartPosition = FormStartPosition.Manual;
             ShowInTaskbar = false;
             Size = new Size(400, 360);
             Text = "About Magic Menus";
+            Load += AboutForm_CenterOnScreen;
             KeyPreview = true;
             KeyDown += delegate (object s, KeyEventArgs e)
             {
@@ -219,6 +225,20 @@ namespace MagicMenus
         private void CenterHorizontally(Control c)
         {
             c.Left = (ClientSize.Width - c.Width) / 2;
+        }
+
+        private void AboutForm_CenterOnScreen(object sender, EventArgs e)
+        {
+            // Prefer the screen containing the owner (or the primary
+            // screen if there's no owner). Using Screen.FromControl on
+            // the owner means a multi-monitor setup pops the dialog on
+            // the same monitor the user was looking at.
+            Screen target = Owner != null
+                ? Screen.FromControl(Owner)
+                : Screen.PrimaryScreen;
+            Rectangle area = target.WorkingArea;
+            Left = area.Left + (area.Width - Width) / 2;
+            Top = area.Top + (area.Height - Height) / 2;
         }
 
         private void ApplyTheme()
