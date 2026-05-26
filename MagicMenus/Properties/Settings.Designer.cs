@@ -80,5 +80,60 @@ namespace MagicMenus.Properties {
                 this["settingsActionHotkey"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.SettingsProviderAttribute(typeof(MagicMenus.Settings.PortableSettingsProvider))]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.SettingsManageabilityAttribute(global::System.Configuration.SettingsManageability.Roaming)]
+        public bool darkMode {
+            get {
+                return ((bool)(this["darkMode"]));
+            }
+            set {
+                this["darkMode"] = value;
+            }
+        }
+        
+        /// <summary>
+        /// User-defined string wildcards. Each entry is of the form
+        /// "%NAME%|VALUE" where NAME is the wildcard token (already
+        /// surrounded by % delimiters when saved) and VALUE is the literal
+        /// string to expand the token into.
+        /// </summary>
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.SettingsProviderAttribute(typeof(MagicMenus.Settings.PortableSettingsProvider))]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<ArrayOfString xmlns:xsi=\"http://www.w3." +
+            "org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" />")]
+        [global::System.Configuration.SettingsManageabilityAttribute(global::System.Configuration.SettingsManageability.Roaming)]
+        public global::System.Collections.Specialized.StringCollection settingsWildcards {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["settingsWildcards"]));
+            }
+            set {
+                this["settingsWildcards"] = value;
+            }
+        }
+        
+        /// <summary>
+        /// True once the user has finished (or skipped) the first-run
+        /// onboarding tutorial. The tutorial only auto-opens when this is
+        /// false and the user has no menu items yet; the General tab also
+        /// exposes a "Show tutorial" button that re-launches it on demand.
+        /// </summary>
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.SettingsProviderAttribute(typeof(MagicMenus.Settings.PortableSettingsProvider))]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.SettingsManageabilityAttribute(global::System.Configuration.SettingsManageability.Roaming)]
+        public bool tutorialCompleted {
+            get {
+                return ((bool)(this["tutorialCompleted"]));
+            }
+            set {
+                this["tutorialCompleted"] = value;
+            }
+        }
     }
 }

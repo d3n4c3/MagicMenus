@@ -569,7 +569,6 @@ namespace QuickMenu
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.chkDM);
-            this.groupBox2.Enabled = false;
             this.groupBox2.Location = new System.Drawing.Point(10, 17);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(399, 46);
@@ -586,6 +585,7 @@ namespace QuickMenu
             this.chkDM.TabIndex = 0;
             this.chkDM.Text = "Dark mode";
             this.chkDM.UseVisualStyleBackColor = true;
+            this.chkDM.CheckedChanged += new System.EventHandler(this.chkDM_CheckedChanged);
             // 
             // groupBox1
             // 
@@ -1101,9 +1101,10 @@ namespace QuickMenu
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(243, 268);
+            this.linkLabel1.Font = new System.Drawing.Font("Calibri", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkLabel1.Location = new System.Drawing.Point(274, 270);
             this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(173, 13);
+            this.linkLabel1.Size = new System.Drawing.Size(132, 11);
             this.linkLabel1.TabIndex = 13;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "Set wildcard variables in \"General.\"";

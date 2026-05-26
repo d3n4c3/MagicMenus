@@ -43,12 +43,13 @@ namespace MagicMenus
         {
             InitializeComponent();
             Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 5, 5));
+            ThemeManager.Apply(this);
+            ThemeManager.ApplyTitleBar(pictureBox1, label3, label1);
         }
 
         private void SetHotKey_Load(object sender, EventArgs e)
         {
             settingHotkey = true;
-
         }
 
         private void SetHotKey_KeyDown(object sender, KeyEventArgs e)
@@ -106,7 +107,7 @@ namespace MagicMenus
 
         private void label1_Click(object sender, EventArgs e)
         {
-            label1.BackColor = Color.FromArgb(64, 64, 64);
+            label1.BackColor = ThemeManager.TitleBarBackground;
             hkModkeys = "";
             hkKeypress = Keys.None;
             this.Close();
@@ -114,11 +115,13 @@ namespace MagicMenus
         }
         private void label1_MouseEnter(object sender, EventArgs e)
         {
-            label1.BackColor = Color.Red;
+            label1.BackColor = ThemeManager.CloseHoverColor;
+            label1.ForeColor = Color.White;
         }
         private void label1_MouseLeave(object sender, EventArgs e)
         {
-            label1.BackColor = Color.FromArgb(64, 64, 64);
+            label1.BackColor = ThemeManager.TitleBarBackground;
+            label1.ForeColor = ThemeManager.TitleBarForeground;
         }
         private void DragAndDrop(MouseEventArgs e)
         {
